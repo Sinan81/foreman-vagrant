@@ -7,13 +7,17 @@
 # http://theforeman.org/manuals/1.9/index.html#3.1.2PuppetCompatibility
 
 # Update system first
-sudo yum update -y
+#sudo yum update -y
 
 if puppet agent --version | grep "3." | grep -v grep 2> /dev/null
 then
     echo "Puppet Agent $(puppet agent --version) is already installed. Moving on..."
 else
     echo "Puppet Agent $(puppet agent --version) installed. Replacing..."
+
+	curl --remote-name --location https://yum.puppetlabs.com/RPM-GPG-KEY-puppet
+	gpg --keyid-format 0xLONG --with-fingerprint ./RPM-GPG-KEY-puppet
+	rpm --import RPM-GPG-KEY-puppet
 
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
     sudo yum -y erase puppet-agent && \
@@ -25,7 +29,12 @@ if ps aux | grep "/usr/share/foreman" | grep -v grep 2> /dev/null
 then
     echo "Foreman appears to all already be installed. Exiting..."
 else
-    sudo yum -y install epel-release http://yum.theforeman.org/releases/1.9/el7/x86_64/foreman-release.rpm && \
+    sudo yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+
+	sed -i 's/https/http/g' /etc/yum.repos.d/epel.repo
+	sed -i 's/https/http/g' /etc/yum.repos.d/epel-testing.repo
+
+	sudo yum -y install http://yum.theforeman.org/releases/1.9/el7/x86_64/foreman-release.rpm && \
     sudo yum -y install foreman-installer nano nmap-ncat && \
     sudo foreman-installer
 
@@ -42,6 +51,7 @@ else
     sudo firewall-cmd --permanent --add-port=8140/tcp
 
     sudo firewall-cmd --reload
+
     sudo systemctl enable firewalld
 
     # First run the Puppet agent on the Foreman host which will send the first Puppet report to Foreman,
@@ -58,3 +68,7 @@ else
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-apache
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-java
 fi
+
+# experienced some problems, which were resolved by restarting httpd
+#sudo systemctl restart httpd
+#sudo systemctl restart foreman

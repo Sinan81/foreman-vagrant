@@ -14,7 +14,11 @@ then
     echo "Puppet Agent $(puppet agent --version) is already installed. Moving on..."
 else
     echo "Puppet Agent $(puppet agent --version) installed. Replacing..."
-    
+ 
+	curl --remote-name --location https://yum.puppetlabs.com/RPM-GPG-KEY-puppet
+	gpg --keyid-format 0xLONG --with-fingerprint ./RPM-GPG-KEY-puppet
+	rpm --import RPM-GPG-KEY-puppet
+   
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
     sudo yum -y erase puppet-agent && \
     sudo rm -f /etc/yum.repos.d/puppetlabs-pc1.repo && \
