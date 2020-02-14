@@ -29,7 +29,7 @@ else
     # Easier to set run interval to 120s for testing (reset to 30m for normal use)
     # https://docs.puppetlabs.com/puppet/3.8/reference/config_about_settings.html
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
-    echo "    server = theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
+    echo "    server = theforeman_72.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "    runinterval = 120s" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null
 
     sudo service puppet stop
