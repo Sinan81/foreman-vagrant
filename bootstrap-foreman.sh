@@ -70,5 +70,4 @@ else
 fi
 
 # experienced some problems, which were resolved by restarting httpd
-#sudo systemctl restart httpd
-#sudo systemctl restart foreman
+sudo systemctl restart httpd
