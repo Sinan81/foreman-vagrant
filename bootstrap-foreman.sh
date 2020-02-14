@@ -7,7 +7,7 @@
 # http://theforeman.org/manuals/1.9/index.html#3.1.2PuppetCompatibility
 
 # Update system first
-#sudo yum update -y
+sudo yum update -y
 
 if puppet agent --version | grep "3." | grep -v grep 2> /dev/null
 then
