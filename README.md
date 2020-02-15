@@ -1,5 +1,7 @@
 ### Notes by Sinan81
 
+* First, install Vagrant and Virtualbox. See [https://phoenixnap.com/kb/how-to-install-vagrant-on-centos-7]() where the instructions are very detail. It should only take few minutes to install these.
+* Next, make sure to install necessary vagrant plugins. Simply run `install_vagrant_plugins.sh` script first. No need to run it with `sudo`.
 * If you see `mount.vboxfs .... command not found` error, simply re-do `vagrant up theforeman.example.com` and similarly for other VMs. Installation will work fine.
 * It is fine if vboxguest-additions update within VMs fail or a different version than the host vbox version. In my experience, the setup still works just fine.
 
