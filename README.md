@@ -4,6 +4,7 @@
 * Next, make sure to install necessary vagrant plugins. Simply run `install_vagrant_plugins.sh` script first. No need to run it with `sudo`.
 * If you see `mount.vboxfs .... command not found` error, simply re-do `vagrant up theforeman.example.com` and similarly for other VMs. Installation will work fine.
 * It is fine if vboxguest-additions update within VMs partially fail or a different version than the host vbox version. In my experience, the setup still works just fine.
+* Rebooting of the machines won't work due to a kernel panic. So you might want to save the state of VMs
 
 ### Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox
 Automatically install and configure Foreman, the open source infrastructure life-cycle management tool, and multiple Puppet Agent VMs using Vagrant and VirtualBox. Project is part of my blog post, [Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox](http://wp.me/p1RD28-1nb).
